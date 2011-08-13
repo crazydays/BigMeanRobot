@@ -7,7 +7,11 @@ import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
 
 import com.xtremelabs.robolectric.RobolectricTestRunner;
+import com.xtremelabs.robolectric.shadows.ShadowActivity.IntentForResult;
 import com.xtremelabs.robolectric.shadows.ShadowHandler;
+import static com.xtremelabs.robolectric.Robolectric.shadowOf;
+
+import static org.crazydays.robot.BigMeanRobotConstants.*;
 
 /**
  * SplashActivityTest
@@ -22,6 +26,17 @@ public class SplashActivityTest
     public void setup()
     {
         activity = new SplashActivity();
+    }
+
+    @Test
+    public void testSplashIfNecessary()
+    {
+        SplashActivity.splashIfNecessary(activity);
+        IntentForResult intentForResult =
+            shadowOf(activity).peekNextStartedActivityForResult();
+        assertEquals("requestCode", REQUEST_SPLASH, intentForResult.requestCode);
+        assertEquals("intent.activity", SplashActivity.class,
+            shadowOf(intentForResult.intent).getIntentClass());
     }
 
     @Test

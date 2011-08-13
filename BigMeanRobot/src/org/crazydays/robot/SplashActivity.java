@@ -2,6 +2,7 @@ package org.crazydays.robot;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
@@ -15,6 +16,17 @@ public class SplashActivity
 {
     /** splashed */
     protected static boolean splashed = false;
+
+    /**
+     * Show splash if it hasn't been already.
+     */
+    public static void splashIfNecessary(Activity activity)
+    {
+        if (!hasSplashed()) {
+            Intent intent = new Intent(activity, SplashActivity.class);
+            activity.startActivityForResult(intent, REQUEST_SPLASH);
+        }
+    }
 
     /**
      * Has splash screen happened.

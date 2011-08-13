@@ -22,18 +22,7 @@ public class BigMeanRobotActivity
     {
         super.onCreate(state);
         setContentView(R.layout.main);
-        splash();
-    }
-
-    /**
-     * Show splash if it hasn't been already.
-     */
-    private void splash()
-    {
-        if (!SplashActivity.hasSplashed()) {
-            Intent intent = new Intent(this, SplashActivity.class);
-            startActivityForResult(intent, REQUEST_SPLASH);
-        }
+        SplashActivity.splashIfNecessary(this);
     }
 
     /**
