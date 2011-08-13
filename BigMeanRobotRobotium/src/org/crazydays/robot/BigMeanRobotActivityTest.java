@@ -1,6 +1,8 @@
 package org.crazydays.robot;
 
 
+import com.jayway.android.robotium.solo.Solo;
+
 import org.crazydays.robot.BigMeanRobotActivity;
 
 import android.test.ActivityInstrumentationTestCase2;
@@ -11,6 +13,8 @@ import android.test.ActivityInstrumentationTestCase2;
 public class BigMeanRobotActivityTest
     extends ActivityInstrumentationTestCase2<BigMeanRobotActivity>
 {
+    private Solo solo;
+
     protected BigMeanRobotActivity activity;
 
     public BigMeanRobotActivityTest()
@@ -26,13 +30,19 @@ public class BigMeanRobotActivityTest
         SplashActivity.splashed = true; // prevent splash screen
         super.setUp();
         activity = getActivity();
+        solo = new Solo(getInstrumentation(), activity);
     }
 
     @Override
     public void tearDown()
         throws Exception
     {
-        activity.finish();
+        try {
+            solo.finalize();
+        } catch (Throwable e) {
+            fail(e.getMessage());
+        }
+        getActivity().finish();
         super.tearDown();
     }
 }

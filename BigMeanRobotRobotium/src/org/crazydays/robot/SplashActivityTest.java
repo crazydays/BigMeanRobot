@@ -1,6 +1,8 @@
 package org.crazydays.robot;
 
 
+import com.jayway.android.robotium.solo.Solo;
+
 import android.test.ActivityInstrumentationTestCase2;
 
 /**
@@ -9,6 +11,8 @@ import android.test.ActivityInstrumentationTestCase2;
 public class SplashActivityTest
     extends ActivityInstrumentationTestCase2<SplashActivity>
 {
+    protected Solo solo;
+
     protected SplashActivity activity;
 
     public SplashActivityTest()
@@ -22,13 +26,19 @@ public class SplashActivityTest
     {
         super.setUp();
         activity = getActivity();
+        solo = new Solo(getInstrumentation(), activity);
     }
 
     @Override
     public void tearDown()
         throws Exception
     {
-        activity.finish();
+        try {
+            solo.finalize();
+        } catch (Throwable e) {
+            fail(e.getMessage());
+        }
+        getActivity().finish();
         super.tearDown();
     }
 

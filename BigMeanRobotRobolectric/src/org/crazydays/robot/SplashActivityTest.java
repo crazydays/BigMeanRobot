@@ -11,8 +11,6 @@ import com.xtremelabs.robolectric.shadows.ShadowActivity.IntentForResult;
 import com.xtremelabs.robolectric.shadows.ShadowHandler;
 import static com.xtremelabs.robolectric.Robolectric.shadowOf;
 
-import static org.crazydays.robot.BigMeanRobotConstants.*;
-
 /**
  * SplashActivityTest
  */
@@ -34,7 +32,8 @@ public class SplashActivityTest
         SplashActivity.splashIfNecessary(activity);
         IntentForResult intentForResult =
             shadowOf(activity).peekNextStartedActivityForResult();
-        assertEquals("requestCode", REQUEST_SPLASH, intentForResult.requestCode);
+        assertEquals("requestCode", SplashActivity.REQUEST_SPLASH,
+            intentForResult.requestCode);
         assertEquals("intent.activity", SplashActivity.class,
             shadowOf(intentForResult.intent).getIntentClass());
     }

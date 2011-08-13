@@ -11,8 +11,6 @@ import com.xtremelabs.robolectric.RobolectricTestRunner;
 import com.xtremelabs.robolectric.shadows.ShadowActivity.IntentForResult;
 import static com.xtremelabs.robolectric.Robolectric.shadowOf;
 
-import static org.crazydays.robot.BigMeanRobotConstants.*;
-
 /**
  * BigMeanRobotActivityTest
  */
@@ -38,7 +36,7 @@ public class BigMeanRobotActivityTest
         IntentForResult intentForResult =
             shadowOf(activity).getNextStartedActivityForResult();
         assertNotNull("intentForResult", intentForResult);
-        assertEquals("requestCode", BigMeanRobotConstants.REQUEST_SPLASH,
+        assertEquals("requestCode", SplashActivity.REQUEST_SPLASH,
             intentForResult.requestCode);
         assertEquals("intentClass", SplashActivity.class,
             shadowOf(intentForResult.intent).getIntentClass());
@@ -47,6 +45,7 @@ public class BigMeanRobotActivityTest
     @Test
     public void testOnActivityResult_splash()
     {
-        activity.onActivityResult(REQUEST_SPLASH, RESULT_SPLASH, null);
+        activity.onActivityResult(SplashActivity.REQUEST_SPLASH,
+            SplashActivity.RESULT_SPLASH, null);
     }
 }

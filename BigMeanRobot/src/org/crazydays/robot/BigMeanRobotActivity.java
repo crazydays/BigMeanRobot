@@ -5,8 +5,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import static org.crazydays.robot.BigMeanRobotConstants.*;
-
 /**
  * BigMeanRobotActivity
  */
@@ -37,7 +35,7 @@ public class BigMeanRobotActivity
         super.onActivityResult(requestCode, resultCode, data);
 
         switch (resultCode) {
-            case RESULT_SPLASH:
+            case SplashActivity.RESULT_SPLASH:
                 break;
         }
     }

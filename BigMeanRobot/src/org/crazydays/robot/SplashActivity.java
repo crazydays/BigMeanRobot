@@ -6,14 +6,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
-import static org.crazydays.robot.BigMeanRobotConstants.*;
-
 /**
  * SplashActivity
  */
 public class SplashActivity
     extends Activity
 {
+    /** request: splash */
+    public final static int REQUEST_SPLASH = 13;
+
+    /** result: splash */
+    public final static int RESULT_SPLASH = 11;
+
     /** splashed */
     protected static boolean splashed = false;
 
