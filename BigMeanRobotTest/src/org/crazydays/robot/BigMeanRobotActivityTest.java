@@ -28,6 +28,19 @@ public class BigMeanRobotActivityTest
         activity = getActivity();
     }
 
+    public void testOnPause()
+    {
+        getInstrumentation().callActivityOnPause(activity);
+        assertEquals("flipper.flipping", false, activity.flipper.isFlipping());
+    }
+
+    public void testOnResume()
+        throws InterruptedException
+    {
+        getInstrumentation().callActivityOnResume(activity);
+        assertEquals("flipper.flipping", true, activity.flipper.isFlipping());
+    }
+
     @Override
     public void tearDown()
         throws Exception
