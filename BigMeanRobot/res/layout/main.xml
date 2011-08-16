@@ -2,5 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent" android:layout_height="fill_parent"
 	android:orientation="vertical">
-	
+
+	<ViewFlipper android:id="@+id/robotFlipper"
+		android:layout_height="wrap_content" android:layout_width="fill_parent"
+		android:flipInterval="350">
+		<ImageView android:id="@+id/imageNormal" android:src="@drawable/robot_base"
+			android:layout_height="wrap_content" android:layout_width="wrap_content" />
+		<ImageView android:id="@+id/imageMouthOpen" android:src="@drawable/robot_chat"
+			android:layout_height="wrap_content" android:layout_width="wrap_content" />
+	</ViewFlipper>
+
 </LinearLayout>

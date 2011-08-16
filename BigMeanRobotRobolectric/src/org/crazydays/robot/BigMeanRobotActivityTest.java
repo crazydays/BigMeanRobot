@@ -40,6 +40,23 @@ public class BigMeanRobotActivityTest
             intentForResult.requestCode);
         assertEquals("intentClass", SplashActivity.class,
             shadowOf(intentForResult.intent).getIntentClass());
+        assertNotNull("flipper", activity.flipper);
+    }
+
+    @Test
+    public void testOnResume()
+    {
+        activity.onCreate(null);
+        activity.onResume();
+        assertEquals("flipping", true, activity.flipper.isFlipping());
+    }
+
+    @Test
+    public void testOnPause()
+    {
+        activity.onCreate(null);
+        activity.onPause();
+        assertEquals("flipping", false, activity.flipper.isFlipping());
     }
 
     @Test
