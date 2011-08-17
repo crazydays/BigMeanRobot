@@ -1,6 +1,7 @@
 package org.crazydays.robot;
 
 
+
 import com.jayway.android.robotium.solo.Solo;
 
 import org.crazydays.robot.BigMeanRobotActivity;
@@ -33,19 +34,6 @@ public class BigMeanRobotActivityTest
         solo = new Solo(getInstrumentation(), activity);
     }
 
-    public void testOnPause()
-    {
-        getInstrumentation().callActivityOnPause(activity);
-        assertEquals("flipper.flipping", false, activity.flipper.isFlipping());
-    }
-
-    public void testOnResume()
-        throws InterruptedException
-    {
-        getInstrumentation().callActivityOnResume(activity);
-        assertEquals("flipper.flipping", true, activity.flipper.isFlipping());
-    }
-
     @Override
     public void tearDown()
         throws Exception
@@ -57,5 +45,15 @@ public class BigMeanRobotActivityTest
         }
         getActivity().finish();
         super.tearDown();
+    }
+
+    public void testFlipperClicked() throws InterruptedException
+    {
+        solo.clickOnView(activity.flipper);
+        assertEquals("flipping", true, activity.flipper.isFlipping());
+        assertEquals("focusable", false, activity.flipper.isFocusable());
+        Thread.sleep(3000);
+        assertEquals("flipping", false, activity.flipper.isFlipping());
+        assertEquals("focusable", true, activity.flipper.isFocusable());
     }
 }

@@ -8,6 +8,7 @@ import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
 
 import com.xtremelabs.robolectric.RobolectricTestRunner;
+import com.xtremelabs.robolectric.shadows.ShadowHandler;
 import com.xtremelabs.robolectric.shadows.ShadowActivity.IntentForResult;
 import static com.xtremelabs.robolectric.Robolectric.shadowOf;
 
@@ -24,6 +25,7 @@ public class BigMeanRobotActivityTest
     public void setup()
     {
         activity = new BigMeanRobotActivity();
+        assertSame("self", activity, activity.self);
     }
 
     @Test
@@ -44,25 +46,21 @@ public class BigMeanRobotActivityTest
     }
 
     @Test
-    public void testOnResume()
-    {
-        activity.onCreate(null);
-        activity.onResume();
-        assertEquals("flipping", true, activity.flipper.isFlipping());
-    }
-
-    @Test
-    public void testOnPause()
-    {
-        activity.onCreate(null);
-        activity.onPause();
-        assertEquals("flipping", false, activity.flipper.isFlipping());
-    }
-
-    @Test
     public void testOnActivityResult_splash()
     {
         activity.onActivityResult(SplashActivity.REQUEST_SPLASH,
             SplashActivity.RESULT_SPLASH, null);
+    }
+
+    @Test
+    public void testInsult()
+    {
+        activity.onCreate(null);
+        activity.flipper.performClick();
+        assertEquals("flipping", true, activity.flipper.isFlipping());
+        assertEquals("focusable", false, activity.flipper.isFocusable());
+        ShadowHandler.runMainLooperToNextTask();
+        assertEquals("flipping", false, activity.flipper.isFlipping());
+        assertEquals("focusable", true, activity.flipper.isFocusable());
     }
 }

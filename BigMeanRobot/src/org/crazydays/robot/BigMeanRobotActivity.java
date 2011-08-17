@@ -4,6 +4,9 @@ package org.crazydays.robot;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ViewFlipper;
 
 /**
@@ -12,6 +15,9 @@ import android.widget.ViewFlipper;
 public class BigMeanRobotActivity
     extends Activity
 {
+    /** self */
+    final protected BigMeanRobotActivity self = this;
+
     /** flipper */
     protected ViewFlipper flipper;
 
@@ -34,30 +40,14 @@ public class BigMeanRobotActivity
     private void setupFlipper()
     {
         flipper = (ViewFlipper) findViewById(R.id.robotFlipper);
-    }
-
-    /**
-     * Start flipping.
-     * 
-     * @see android.app.Activity#onResume()
-     */
-    @Override
-    protected void onResume()
-    {
-        super.onResume();
-        flipper.startFlipping();
-    }
-
-    /**
-     * Pause flipping.
-     * 
-     * @see android.app.Activity#onPause()
-     */
-    @Override
-    protected void onPause()
-    {
-        flipper.stopFlipping();
-        super.onPause();
+        flipper.setOnClickListener(new OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                self.insult();
+            }
+        });
     }
 
     /**
@@ -75,5 +65,39 @@ public class BigMeanRobotActivity
             case SplashActivity.RESULT_SPLASH:
                 break;
         }
+    }
+
+    /**
+     * Insult the user.
+     */
+    protected void insult()
+    {
+        startYapping();
+        new Handler().postDelayed(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                self.stopYapping();
+            }
+        }, 3500);
+    }
+
+    /**
+     * Start yapping.
+     */
+    private void startYapping()
+    {
+        flipper.setFocusable(false);
+        flipper.startFlipping();
+    }
+
+    /**
+     * Stop yapping.
+     */
+    private void stopYapping()
+    {
+        flipper.stopFlipping();
+        flipper.setFocusable(true);
     }
 }
