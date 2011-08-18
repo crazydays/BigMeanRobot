@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.EditText;
 import android.widget.ViewFlipper;
 
 /**
@@ -15,11 +16,20 @@ import android.widget.ViewFlipper;
 public class BigMeanRobotActivity
     extends Activity
 {
+    /** tick */
+    protected final static long TICK = 350;
+
     /** self */
-    final protected BigMeanRobotActivity self = this;
+    protected final BigMeanRobotActivity self = this;
 
     /** flipper */
     protected ViewFlipper flipper;
+
+    /** insult view */
+    protected EditText insultChat;
+
+    /** insult-o-matic */
+    protected Insultomatic insultomatic;
 
     /**
      * @param state State
@@ -31,7 +41,17 @@ public class BigMeanRobotActivity
         super.onCreate(state);
         setContentView(R.layout.main);
         SplashActivity.splashIfNecessary(this);
+        setupInsultChat();
         setupFlipper();
+        setupInsultomatic();
+    }
+
+    /**
+     * Setup insult chat.
+     */
+    private void setupInsultChat()
+    {
+        insultChat = (EditText) findViewById(R.id.robotChat);
     }
 
     /**
@@ -48,6 +68,14 @@ public class BigMeanRobotActivity
                 self.insult();
             }
         });
+    }
+
+    /**
+     * Setup insultomatic.
+     */
+    private void setupInsultomatic()
+    {
+        insultomatic = new Insultomatic(this);
     }
 
     /**
@@ -80,7 +108,7 @@ public class BigMeanRobotActivity
             {
                 self.stopYapping();
             }
-        }, 3500);
+        }, TICK * 9);
     }
 
     /**
@@ -90,6 +118,7 @@ public class BigMeanRobotActivity
     {
         flipper.setFocusable(false);
         flipper.startFlipping();
+        updateInsultChat();
     }
 
     /**
@@ -99,5 +128,23 @@ public class BigMeanRobotActivity
     {
         flipper.stopFlipping();
         flipper.setFocusable(true);
+    }
+
+    /**
+     * Update insult chat.
+     */
+    private void updateInsultChat()
+    {
+        insultChat.setText(insultomatic.getInsult());
+        insultChat.setVisibility(View.VISIBLE);
+
+        new Handler().postDelayed(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                insultChat.setVisibility(View.INVISIBLE);
+            }
+        }, TICK * 15);
     }
 }

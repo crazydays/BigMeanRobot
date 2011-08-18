@@ -5,6 +5,7 @@ import org.crazydays.robot.BigMeanRobotActivity;
 
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.TouchUtils;
+import android.view.View;
 
 /**
  * BigMeanRobotActivityTest
@@ -43,8 +44,14 @@ public class BigMeanRobotActivityTest
         TouchUtils.clickView(this, activity.flipper);
         assertEquals("flipping", true, activity.flipper.isFlipping());
         assertEquals("focusable", false, activity.flipper.isFocusable());
-        Thread.sleep(3000);
+        Thread.sleep(BigMeanRobotActivity.TICK * 10);
         assertEquals("flipping", false, activity.flipper.isFlipping());
         assertEquals("focusable", true, activity.flipper.isFocusable());
+        assertEquals("visible", View.VISIBLE,
+            activity.insultChat.getVisibility());
+        assertFalse("insult", activity.insultChat.getText().equals(""));
+        Thread.sleep(BigMeanRobotActivity.TICK * 5);
+        assertEquals("visible", View.INVISIBLE,
+            activity.insultChat.getVisibility());
     }
 }

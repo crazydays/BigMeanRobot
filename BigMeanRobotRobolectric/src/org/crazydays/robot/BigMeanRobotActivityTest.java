@@ -7,6 +7,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
 
+import android.view.View;
+
 import com.xtremelabs.robolectric.RobolectricTestRunner;
 import com.xtremelabs.robolectric.shadows.ShadowHandler;
 import com.xtremelabs.robolectric.shadows.ShadowActivity.IntentForResult;
@@ -42,7 +44,9 @@ public class BigMeanRobotActivityTest
             intentForResult.requestCode);
         assertEquals("intentClass", SplashActivity.class,
             shadowOf(intentForResult.intent).getIntentClass());
+        assertNotNull("insultChat", activity.insultChat);
         assertNotNull("flipper", activity.flipper);
+        assertNotNull("insultomatic", activity.insultomatic);
     }
 
     @Test
@@ -62,5 +66,11 @@ public class BigMeanRobotActivityTest
         ShadowHandler.runMainLooperToNextTask();
         assertEquals("flipping", false, activity.flipper.isFlipping());
         assertEquals("focusable", true, activity.flipper.isFocusable());
+        assertEquals("visible", View.VISIBLE,
+            activity.insultChat.getVisibility());
+        assertFalse("insult", activity.insultChat.getText().equals(""));
+        ShadowHandler.runMainLooperToNextTask();
+        assertEquals("visible", View.INVISIBLE,
+            activity.insultChat.getVisibility());
     }
 }
