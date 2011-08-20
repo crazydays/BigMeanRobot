@@ -52,15 +52,15 @@ public class BigMeanRobotActivityTest
     {
         solo.clickOnView(activity.flipper);
         assertEquals("flipping", true, activity.flipper.isFlipping());
-        assertEquals("focusable", false, activity.flipper.isFocusable());
+        assertEquals("clickable", false, activity.flipper.isClickable());
         Thread.sleep(BigMeanRobotActivity.TICK * 10);
         assertEquals("flipping", false, activity.flipper.isFlipping());
-        assertEquals("focusable", true, activity.flipper.isFocusable());
         assertEquals("visible", View.VISIBLE,
             activity.insultChat.getVisibility());
         assertFalse("insult", activity.insultChat.getText().equals(""));
         Thread.sleep(BigMeanRobotActivity.TICK * 5);
         assertEquals("visible", View.INVISIBLE,
             activity.insultChat.getVisibility());
+        assertEquals("clickable", true, activity.flipper.isClickable());
     }
 }

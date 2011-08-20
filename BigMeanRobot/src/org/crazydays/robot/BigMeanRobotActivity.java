@@ -116,7 +116,7 @@ public class BigMeanRobotActivity
      */
     private void startYapping()
     {
-        flipper.setFocusable(false);
+        flipper.setClickable(false);
         flipper.startFlipping();
         updateInsultChat();
     }
@@ -127,7 +127,6 @@ public class BigMeanRobotActivity
     private void stopYapping()
     {
         flipper.stopFlipping();
-        flipper.setFocusable(true);
     }
 
     /**
@@ -144,6 +143,7 @@ public class BigMeanRobotActivity
             public void run()
             {
                 insultChat.setVisibility(View.INVISIBLE);
+                flipper.setClickable(true);
             }
         }, TICK * 15);
     }
